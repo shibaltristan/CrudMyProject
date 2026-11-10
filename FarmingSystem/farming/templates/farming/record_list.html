@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Farming Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/notifications.css' %}">
+</head>
+<body>
+<div class="app-shell">
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-icon">🌾</div>
+            <div><h1>Farming Management</h1><p>Welcome, {{ user.first_name|default:user.username }}</p></div>
+        </div>
+        <form method="post" action="{% url 'accounts:logout' %}" class="logout-form">
+            {% csrf_token %}<button class="secondary-button" type="submit">Log Out</button>
+        </form>
+    </header>
+
+    <section class="summary-grid">
+        <article class="summary-card expense"><span>💸 Total Expenses</span><strong>₱{{ expenses|floatformat:2 }}</strong></article>
+        <article class="summary-card"><span>💰 Total Income</span><strong>₱{{ income|floatformat:2 }}</strong></article>
+        <article class="summary-card profit"><span>📈 Net Profit</span><strong>₱{{ profit|floatformat:2 }}</strong></article>
+    </section>
+
+    <div class="toolbar"><h2>Farm Records</h2><a class="primary-button" style="width:auto" href="{% url 'record_create' %}">＋ Add Record</a></div>
+    <div class="record-panel">
+        <table>
+            <thead><tr><th>Title</th><th>Type</th><th>Amount</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody>
+            {% for record in records %}
+            <tr>
+                <td><strong>{{ record.title }}</strong></td><td>{{ record.record_type }}</td><td>₱{{ record.amount }}</td><td>{{ record.date }}</td>
+                <td class="actions"><a href="{% url 'record_update' record.pk %}">Edit</a><a href="{% url 'record_delete' record.pk %}">Delete</a></td>
+            </tr>
+            {% empty %}<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:35px">No farming records yet. Add your first record.</td></tr>{% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% include 'farming/includes/notifications.html' %}
+</body>
+</html>

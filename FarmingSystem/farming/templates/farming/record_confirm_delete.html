@@ -1,0 +1,14 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Delete Record</title><link rel="stylesheet" href="{% static 'css/styles.css' %}"><link rel="stylesheet" href="{% static 'css/notifications.css' %}"></head>
+<body>
+<main class="delete-card">
+    <div style="font-size:42px">🗑️</div>
+    <h1>Delete this record?</h1>
+    <p>“{{ record.title }}” will be permanently removed.</p>
+    <form method="POST" data-confirm-delete><div class="form-actions" style="justify-content:center">{% csrf_token %}<button class="danger-button" type="submit">Yes, Delete</button><a class="secondary-button" href="{% url 'record_list' %}">Cancel</a></div></form>
+</main>
+{% include 'farming/includes/notifications.html' %}
+</body>
+</html>

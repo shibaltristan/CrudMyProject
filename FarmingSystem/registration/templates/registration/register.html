@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Farmer Registration | Farming System</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/notifications.css' %}">
+</head>
+<body class="auth-page">
+    <main class="auth-card">
+        <div class="auth-banner">
+            <div class="brand-mark">🌾</div>
+            <h1>Create your farmer account</h1>
+            <p>Register to manage your farming records.</p>
+        </div>
+        <div class="auth-content">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-grid">
+                    {% for field in form %}
+                    <div class="{% if field.name == 'description' %}field-full{% endif %}">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+                        {{ field.errors }}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div style="margin-top:20px">
+                    <button class="primary-button" type="submit">Create Account</button>
+                </div>
+            </form>
+            <p style="text-align:center;margin-top:20px">Already registered? <a href="{% url 'accounts:login' %}">Log in</a></p>
+        </div>
+    </main>
+    {% include 'farming/includes/notifications.html' %}
+</body>
+</html>

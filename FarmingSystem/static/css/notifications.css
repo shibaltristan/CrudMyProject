@@ -1,0 +1,35 @@
+.farm-notification.swal2-popup {
+    width: min(420px, calc(100vw - 32px));
+    padding: 14px 18px;
+    border-radius: 14px;
+    box-shadow: 0 12px 36px rgba(29, 42, 35, .2);
+    font-family: Segoe UI, Arial, sans-serif;
+}
+
+.farm-notification .swal2-title {
+    color: #1d2a23;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: left;
+}
+
+.farm-confirmation.swal2-popup {
+    width: min(440px, calc(100vw - 32px));
+    border-radius: 18px;
+    font-family: Segoe UI, Arial, sans-serif;
+}
+
+.farm-confirmation .swal2-title {
+    color: #1d2a23;
+}
+
+@media (max-width: 480px) {
+    .farm-notification.swal2-popup {
+        margin: 8px;
+        padding: 12px 14px;
+    }
+
+    .farm-notification .swal2-title {
+        font-size: 14px;
+    }
+}

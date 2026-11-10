@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Farmer Login | Farming System</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/notifications.css' %}">
+</head>
+<body class="auth-page">
+    <main class="auth-card">
+        <div class="auth-banner">
+            <div class="brand-mark">🌾</div>
+            <h1>Welcome back</h1>
+            <p>Log in with your Farmers ID.</p>
+        </div>
+        <div class="auth-content">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div style="margin-bottom:16px">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
+                <input type="hidden" name="next" value="{{ next }}">
+                <button class="primary-button" type="submit">Log In</button>
+            </form>
+            <p style="text-align:center;margin-top:20px">New farmer? <a href="{% url 'registration:register' %}">Create an account</a></p>
+        </div>
+    </main>
+    {% include 'farming/includes/notifications.html' %}
+</body>
+</html>
